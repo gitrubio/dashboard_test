@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { AuthKitProvider } from '@workos-inc/authkit-react';
 
 import App from './app';
+import { API_CONFIG } from './config-global';
 
 // ----------------------------------------------------------------------
 
@@ -12,8 +13,8 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <StrictMode>
-    <AuthKitProvider clientId="client_01JMYW7ZXK94YMMDYVM6Y0S1SS"  devMode 
-    redirectUri='http://localhost:3039/'>
+    <AuthKitProvider clientId={API_CONFIG.clientId}  devMode 
+    redirectUri={API_CONFIG.urlRedirect}>
       <HelmetProvider>
         <BrowserRouter>
           <Suspense>
