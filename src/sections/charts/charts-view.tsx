@@ -87,7 +87,7 @@ export function ChartsView() {
             color='error'
             chart={{
               categories: ['Last Month', 'This Month'],
-              series: [chart.closePrices[chart.closePrices.length - 2],chart.closePrices[chart.closePrices.length - 1]]
+              series:  chart.closePrices
             }}
           />
         </Grid>

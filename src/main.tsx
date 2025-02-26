@@ -11,10 +11,9 @@ import { API_CONFIG } from './config-global';
 // ----------------------------------------------------------------------
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-
 root.render(
   <StrictMode>
-    <AuthKitProvider   clientId={API_CONFIG.clientId}   redirectUri={API_CONFIG.urlRedirect}>
+    <AuthKitProvider   clientId={API_CONFIG.clientId} devMode  redirectUri={window.location.origin} >
       <HelmetProvider>
           <BrowserRouter>
             <Suspense>
