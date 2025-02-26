@@ -22,8 +22,10 @@ import { AnalyticsWidgetSummary } from '../overview/analytics-widget-summary';
 
 export function ChartsView() {
   const [symbol, setSymbol] = useState('AAPL');
-  const {chart, findChartData} =  useCharts();
+  const {chart, loading, findChartData} =  useCharts();
 
+
+  if(loading) return <Loader />
 
   const handleChart = (company: string) => {
     setSymbol(company);
