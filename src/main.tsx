@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <StrictMode>
-    <AuthKitProvider clientId={API_CONFIG.clientId} devMode redirectUri={API_CONFIG.urlRedirect}>
+    <AuthKitProvider clientId={API_CONFIG.clientId} devMode={!API_CONFIG.isProduction}  redirectUri={API_CONFIG.urlRedirect}>
       <HelmetProvider>
           <BrowserRouter>
             <Suspense>

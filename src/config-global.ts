@@ -19,4 +19,5 @@ export const API_CONFIG = {
   clientId: import.meta.env.VITE_CLIENT_ID,
   clientSecret: import.meta.env.VITE_CLIENT_SECRET,
   urlRedirect: import.meta.env.VITE_URL_REDIRECT,
+  isProduction: import.meta.env.PRODUCTION === 'true',
 }
