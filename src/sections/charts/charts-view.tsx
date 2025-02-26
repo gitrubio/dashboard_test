@@ -25,7 +25,7 @@ export function ChartsView() {
   const {chart, loading, findChartData} =  useCharts();
 
 
-  if(loading) return <Loader />
+  if(loading && chart.symbol === '') return <Loader />
 
   const handleChart = (company: string) => {
     setSymbol(company);
