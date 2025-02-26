@@ -2,11 +2,10 @@ import { lazy, Suspense } from 'react';
 import { useAuth } from '@workos-inc/authkit-react';
 import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
-import Box from '@mui/material/Box';
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
-
-import { varAlpha } from 'src/theme/styles';
 import { DashboardLayout } from 'src/layouts/dashboard';
+
+import { Loader } from 'src/components/loader';
+
 
 // ----------------------------------------------------------------------
 
@@ -20,24 +19,12 @@ export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
 // ----------------------------------------------------------------------
 
-const renderFallback = (
-  <Box display="flex" alignItems="center" justifyContent="center" flex="1 1 auto">
-    <LinearProgress
-      sx={{
-        width: 1,
-        maxWidth: 320,
-        bgcolor: (theme) => varAlpha(theme.vars.palette.text.primaryChannel, 0.16),
-        [`& .${linearProgressClasses.bar}`]: { bgcolor: 'text.primary' },
-      }}
-    />
-  </Box>
-);
 
 function PrivateRoute({ children }: { children: JSX.Element }) {
   const { user, isLoading } = useAuth();
 
   if (isLoading) {
-    return renderFallback
+    return <Loader/>
   }
 
   if (!user) {
@@ -51,7 +38,7 @@ function AuthRoutes({ children }: { children: JSX.Element }) {
   const { user, isLoading } = useAuth();
 
   if (isLoading) {
-    return renderFallback
+    return <Loader/>
   }
 
   if (user) {
@@ -67,7 +54,7 @@ export function Router() {
       element: (
         <PrivateRoute>
           <DashboardLayout>
-            <Suspense fallback={renderFallback}>
+            <Suspense fallback={<Loader/>}>
               <Outlet />
             </Suspense>
           </DashboardLayout>

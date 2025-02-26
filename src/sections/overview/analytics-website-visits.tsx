@@ -21,9 +21,10 @@ type Props = CardProps & {
     }[];
     options?: ChartOptions;
   };
+  textHover?: string;
 };
 
-export function AnalyticsWebsiteVisits({ title, subheader, chart, ...other }: Props) {
+export function AnalyticsWebsiteVisits({ title, subheader, chart, textHover = 'visits',...other }: Props) {
   const theme = useTheme();
 
   const chartColors = chart.colors ?? [
@@ -45,7 +46,7 @@ export function AnalyticsWebsiteVisits({ title, subheader, chart, ...other }: Pr
     },
     tooltip: {
       y: {
-        formatter: (value: number) => `${value} visits`,
+        formatter: (value: number) => `${value} ${textHover}`,
       },
     },
     ...chart.options,

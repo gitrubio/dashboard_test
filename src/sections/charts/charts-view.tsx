@@ -1,3 +1,6 @@
+import { useState } from 'react';
+
+import { Box } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
@@ -5,15 +8,29 @@ import { useCharts } from 'src/hooks/use-charts';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
+import { Loader } from 'src/components/loader';
+
+import { PostSort } from '../blog/post-sort';
 import { AnalyticsWebsiteVisits } from '../overview/analytics-website-visits';
 import { AnalyticsWidgetSummary } from '../overview/analytics-widget-summary';
+
+
+
 
 
 // ----------------------------------------------------------------------
 
 export function ChartsView() {
+  const [symbol, setSymbol] = useState('AAPL');
+  const {chart, findChartData} =  useCharts();
 
-  const algo =  useCharts();
+
+  const handleChart = (company: string) => {
+    setSymbol(company);
+    findChartData(company);
+  }
+
+  
 
   return (
     <DashboardContent maxWidth="xl">
@@ -21,16 +38,31 @@ export function ChartsView() {
         Companys Analytics
       </Typography>
 
+      <Box display="flex" alignItems="center" gap={2} justifyContent="end" sx={{ mb: 3 }}>
+       <Typography variant="subtitle1" >
+        Current Company: 
+      </Typography>      
+        <PostSort
+          sortBy={symbol}
+          onSort={handleChart}
+          options={[
+            { value: 'AAPL', label: 'Apple Inc.' },
+            { value: 'GOOGL', label: 'Google Inc.' },
+            { value: 'MSFT', label: 'Microsoft Corporation' },
+          ]}
+        />
+      </Box>
+
       <Grid container spacing={3} >
         <Grid xs={12} md={6} lg={8}>   
           <AnalyticsWebsiteVisits
-            title="Website visits"
-            subheader="(+43%) than last year"
+            title="Actions"
+            textHover='USD'
+            subheader={`(+${chart.yearlyGrowth.toFixed(1)}%) than last year`}
             chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+              categories: chart.months,
               series: [
-                { name: 'Team A', data: [43, 33, 22, 37, 67, 68, 37, 24, 55, 33,23,42] },
-                { name: 'Team B', data: [51, 70, 47, 67, 40, 37, 24, 70, 24, 34,21, 10] }
+                { name: chart.name, data: chart.closePrices },
               ],
             }}
           />
@@ -38,23 +70,24 @@ export function ChartsView() {
 
         <Grid xs={12} sm={12} md={4} rowGap={3} display="inline-grid"  >
           <AnalyticsWidgetSummary
-            title="Weekly sales"
-            percent={2.6}
-            total={714000}
+            title="Yearly Growth"
+            percent={chart.yearlyGrowth}
+            total={chart.yearlyGrowth}
             icon={<img alt="icon" src="/assets/icons/glass/ic-glass-bag.svg" />}
             chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-              series: [22, 8, 35, 50, 82, 84, 77, 12, 22, 8, 35, 50]
+              categories: chart.months,
+              series: chart.closePrices
             }}
           />
           <AnalyticsWidgetSummary
-            title="Weekly sales"
-            percent={2.6}
-            total={714000}
-            icon={<img alt="icon" src="/assets/icons/glass/ic-glass-bag.svg" />}
+            title="Last Monthly Growth"
+            percent={chart.monthlyGrowth}
+            total={chart.monthlyGrowth}
+            icon={<img alt="icon" src="/assets/icons/glass/ic-glass-message.svg" />}
+            color='error'
             chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-              series: [22, 8, 35, 50, 82, 84, 77, 12, 22, 8, 35, 50]
+              categories: ['Last Month', 'This Month'],
+              series: [chart.closePrices[chart.closePrices.length - 2],chart.closePrices[chart.closePrices.length - 1]]
             }}
           />
         </Grid>
