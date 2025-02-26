@@ -12,7 +12,7 @@
 - [Users](https://free.minimals.cc/user)
 - [Products](https://free.minimals.cc/products)
 - [Blog](https://free.minimals.cc/blog)
-- [Sign in](https://free.minimals.cc/sign-in)
+- [Sign in](https://free.minimals.cc/sign-in) (this page was change for the test)
 - [Not found](https://free.minimals.cc/404)
 
 ## Quick start
@@ -23,21 +23,17 @@
 - **Start:** `npm run dev` or `yarn dev`
 - **Build:** `npm run build` or `yarn build`
 - Open browser: `http://localhost:3039`
+- Remember to configure the .env file and set the following variables.
 
-## Upgrade to PRO Version
+## .env File Configuration
 
-| Minimal Free                | [Minimal Pro](https://material-ui.com/store/items/minimal-dashboard/)                                   |
+| Variable                |Description                                  |
 | :-------------------------- | :------------------------------------------------------------------------------------------------------ |
-| **6** Pages                 | **70+** Pages                                                                                           |
-| **Partial** theme customize | **Fully** theme customize                                                                               |
-| -                           | **Next.js** version                                                                                     |
-| -                           | **TypeScript** version (Standard Plus and Extended license)                                             |
-| -                           | Design **Figma** file (Standard Plus and Extended license)                                              |
-| -                           | Authentication with **Amplify**, **Auth0**, **JWT**, **Firebase** and **Supabase**                      |
-| -                           | Light/dark mode, right-to-left, form validation... ([+more components](https://minimals.cc/components)) |
-| -                           | Complete users flows                                                                                    |
-| -                           | 1 year of free updates / 6 months of technical support                                                  |
-| -                           | Learn more: [Package & license](https://docs.minimals.cc/package)                                       |
+| **VITE_CLIENT_ID**                  | Value of the client ID in WorkOS AuthKit.                                                                                           |
+| **VITE_API_BASE_URL**      | Base URL for the API that returns company stock information.customize                                                                               |
+| **VITE_URL_REDIRECT**                       | Redirection value for AuthKit sign-in                                                                                     |
+| **VITE_CLIENT_SECRET**                           | Value of the client secret in WorkOS                                              |
+| **VITE_PRODUCTION**                           | Value to configure the app in production mode (do not use in development).                                    |
 
 ## License
 
